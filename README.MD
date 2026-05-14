@@ -34,3 +34,17 @@ secured with Azure Entra ID SSO and Azure Key Vault.
 - Secret Management (Key Vault)
 - Reverse Proxy & TLS (Caddy)
 - Local AI Deployment (Ollama)
+
+## Screenshots
+
+### Login Page (Microsoft SSO)
+![Login Page](screenshots/login-page.png)
+
+### AI CHAT Interface
+![Chat Interface](screenshots/chat-interface.png)
+
+### Azure Key Vault
+![Key Vault](screenshots/Azure-keyvault.png)
+
+### Azure App Registration
+![App Registration](screenshots/azure-app-registration.png)
