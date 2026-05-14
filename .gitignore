@@ -1,0 +1,4 @@
+.env
+*.secret
+caddy_data/
+__pycache__/

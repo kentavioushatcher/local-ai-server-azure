@@ -1,0 +1,46 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    expose:
+      - "8080"
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - ENABLE_OAUTH_SIGNUP=true
+      - OAUTH_PROVIDER_NAME=Microsoft
+      - OPENID_PROVIDER_URL=https://login.microsoftonline.com/YOUR-TENANT-ID/v2.0/.well-known/openid-configuration
+      - OAUTH_CLIENT_ID=YOUR_CLIENT-ID
+      - OAUTH_CLIENT_SECRET=your-secret-from-azure-key-vault
+      - ENABLE_LOGIN_FORM=false
+    volumes:
+      - open_webui_data:/app/backend/data
+    depends_on:
+      - ollama
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:alpine
+    container_name: caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+    depends_on:
+      - open-webui
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+  open_webui_data:
+  caddy_data:
