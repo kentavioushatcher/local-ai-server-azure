@@ -27,6 +27,22 @@ secured with Azure Entra ID SSO and Azure Key Vault.
 6. Run docker-compose up -d
 7. Visit https://localhost
 
+## Security Notes
+
+### TLS Encryption
+HTTPS is implemented via Caddy reverse proxy with automatic 
+certificate management. A self-signed certificate is used for 
+localhost development. In a production deployment with a public 
+domain, Caddy automatically obtains a trusted certificate from 
+Let's Encrypt at no cost — no manual configuration required.
+
+### Secret Management
+All credentials are stored in Azure Key Vault instead of 
+hardcoded in configuration files. GitHub's secret scanning 
+detected and blocked an accidental credential exposure during 
+development, demonstrating the importance of secret management 
+best practices.
+
 ## Skills Demonstrated
 - Cloud Security (Azure)
 - containerization (Docker)
